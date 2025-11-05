@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>AAC Board</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/dark-mode.css"/>
+    <link rel="stylesheet" href="/css/accessibility.css"/>
+    <link rel="stylesheet" href="/css/accessibility-panel.css"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+<header class="topbar" role="banner">
+    <nav class="nav" aria-label="Główna nawigacja">
+        <a class="nav__brand" href="/">AAC APP</a>
+        <div class="nav__links">
+            <a class="nav__link" href="/">Start</a>
+            <a class="nav__link nav__link--active" href="/board" aria-current="page">Tablica</a>
+            <a class="nav__link" href="/education">Nauka</a>
+            <a class="nav__link" href="/settings">Ustawienia</a>
+        </div>
+    </nav>
+</header>
+
+<div id="offlineBanner" class="banner banner--warn" role="status" aria-live="polite" hidden>
+    Tryb offline: działania zostaną zsynchronizowane po powrocie połączenia.
+</div>
+
+<main id="main" class="dashboard" role="main">
+    <div class="dashboard__header">
+        <h1>💬 Tablica komunikacyjna</h1>
+        <p class="dashboard__subtitle">Buduj zdania i komunikuj się</p>
+    </div>
+
+    <div class="card card--large">
+        <!-- Board Selection -->
+        <div class="board-header">
+            <h2 class="section-title">Moje tablice</h2>
+            <div class="board-controls">
+                <select id="boardSelect" class="input input--large" aria-label="Wybierz tablicę"></select>
+                <button id="newBoardBtn" class="btn btn--large">+ Nowa</button>
+                <button id="renameBoardBtn" class="btn btn--large btn--secondary">Zmień nazwę</button>
+                <button id="deleteBoardBtn" class="btn btn--large btn--danger">Usuń</button>
+            </div>
+        </div>
+
+        <!-- Sentence Builder -->
+        <div class="sentence-builder" aria-label="Pasek zdania">
+            <div class="sentence-display">
+                <div id="sentenceText" class="sentence-text" aria-live="polite">Wybierz symbole aby zbudować zdanie...</div>
+            </div>
+            <div class="sentence-actions sentence-controls">
+                <button id="speakBtn" class="btn btn--large btn--primary control-button" data-no-speak aria-label="Powiedz zdanie">🔊 Powiedz</button>
+                <button id="clearBtn" class="btn btn--large btn--secondary control-button" data-no-speak aria-label="Wyczyść zdanie">🗑️ Wyczyść</button>
+                <button id="saveHistoryBtn" class="btn btn--large btn--secondary control-button" data-no-speak aria-label="Zapisz w historii">💾 Zapisz</button>
+                <button id="shareBtn" class="btn btn--large btn--secondary control-button" data-no-speak aria-label="Udostępnij zdanie">📤 Udostępnij</button>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-bar">
+            <input id="searchInput" class="input input--large input--search" placeholder="🔍 Szukaj symboli..." aria-label="Szukaj symboli" />
+            <button id="micBtn" class="btn btn--large btn--icon" type="button" aria-pressed="false" aria-label="Wyszukiwanie głosem">🎤</button>
+        </div>
+
+        <!-- Board Grid -->
+        <div class="board-container">
+            <div class="board-grid" id="boardGrid" role="grid" aria-label="Symbole tablicy"></div>
+        </div>
+
+        <!-- Add Symbol -->
+        <div class="board-footer">
+            <button id="addSymbolBtn" class="btn btn--large btn--success">+ Dodaj nowy symbol</button>
+        </div>
+    </div>
+
+    <!-- Sidebar: Suggestions & History -->
+    <aside class="sidebar-panel" aria-label="Podpowiedzi i historia">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">💡 Podpowiedzi</h3>
+            <div id="suggestions" class="suggestions-list" aria-live="polite"></div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">📜 Historia</h3>
+            <div id="historyList" class="history-list"></div>
+        </div>
+    </aside>
+
+    <!-- SOS Button -->
+    <button id="panicBtn" class="sos-btn" type="button" aria-label="Wezwij pomoc SOS" title="Wezwij pomoc SOS">
+        <span class="sos-icon">🆘</span>
+        <span class="sos-text">SOS</span>
+    </button>
+</main>
+
+<!-- Modal: Add Symbol -->
+<div id="symbolModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="symbolModalTitle" hidden>
+  <div class="modal__content">
+    <h2 id="symbolModalTitle">Dodaj symbol</h2>
+    <div class="modal__row"><input id="symLabel" class="input" placeholder="Etykieta (np. Woda)" /></div>
+    <div class="modal__row"><input id="symTts" class="input" placeholder="Tekst do czytania (domyślnie etykieta)" /></div>
+    <div class="modal__row"><input id="symColor" class="input" placeholder="Kolor tła (np. #FFD93D)" /></div>
+    <div class="modal__row"><input id="symEmoji" class="input" placeholder="Emoji (opcjonalnie) 😊" /></div>
+    <div class="modal__emoji-list" id="emojiList" aria-label="Wybierz emoji">
+      <button class="modal__emoji-btn" type="button">😀</button>
+      <button class="modal__emoji-btn" type="button">🙂</button>
+      <button class="modal__emoji-btn" type="button">😊</button>
+      <button class="modal__emoji-btn" type="button">👍</button>
+      <button class="modal__emoji-btn" type="button">🙏</button>
+      <button class="modal__emoji-btn" type="button">❤️</button>
+      <button class="modal__emoji-btn" type="button">🍎</button>
+      <button class="modal__emoji-btn" type="button">🥪</button>
+      <button class="modal__emoji-btn" type="button">🚰</button>
+      <button class="modal__emoji-btn" type="button">🛁</button>
+      <button class="modal__emoji-btn" type="button">🚻</button>
+      <button class="modal__emoji-btn" type="button">🩹</button>
+    </div>
+    <div class="modal__row"><input id="symImageUrl" class="input" placeholder="Adres obrazka (URL, opcjonalnie)" /></div>
+    <div class="modal__row"><input id="symFile" type="file" accept="image/*" capture="environment" class="input" /></div>
+    <div class="modal__row" style="justify-content:flex-end">
+      <button id="symCancel" class="btn btn--ghost" type="button">Anuluj</button>
+      <button id="symSave" class="btn" type="button">Zapisz</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Board Page Styles */
+.dashboard{display:flex;flex-direction:column;gap:2rem;padding:2rem 1rem;max-width:1600px;margin:0 auto}
+.dashboard__header{text-align:center;margin-bottom:1rem}
+.dashboard__header h1{font-size:2.5rem;font-weight:700;color:#212121;margin:0 0 .5rem 0}
+.dashboard__subtitle{font-size:1.3rem;color:#666;margin:0}
+
+.board-header{margin-bottom:2rem}
+.section-title{font-size:1.75rem;font-weight:700;color:#212121;margin:0 0 1.5rem 0;padding-bottom:.75rem;border-bottom:3px solid var(--primary)}
+.board-controls{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.board-controls select{flex:1;min-width:200px}
+
+.sentence-builder{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:4px solid var(--primary);border-radius:20px;padding:2rem;margin-bottom:2rem;box-shadow:0 6px 16px rgba(74,144,226,.3)}
+.sentence-display{margin-bottom:1.5rem}
+.sentence-text{min-height:100px;background:#fff;border:3px solid #90caf9;border-radius:16px;padding:1.5rem;font-size:1.8rem;font-weight:600;color:#212121;line-height:1.6;word-wrap:break-word}
+.sentence-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.sentence-actions .btn{flex:1;min-width:140px}
+
+.search-bar{display:flex;gap:1rem;margin-bottom:2rem;align-items:stretch}
+.input--search{flex:1;font-size:1.3rem}
+.btn--icon{width:70px;font-size:1.8rem;padding:.75rem}
+
+.board-container{margin-bottom:2rem}
+.board-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1.5rem;padding:1rem 0}
+
+.symbol{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:1.5rem 1rem;border:4px solid transparent;border-radius:20px;cursor:pointer;transition:all .2s ease;min-height:140px;position:relative;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.symbol:hover{transform:translateY(-6px);box-shadow:0 8px 20px rgba(0,0,0,.25);border-color:rgba(0,0,0,.2)}
+.symbol:focus{outline:4px solid #000;outline-offset:4px}
+.symbol:active{transform:translateY(-2px)}
+.symbol__emoji{font-size:4rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.symbol__label{font-size:1.3rem;font-weight:700;color:#000;text-align:center;text-shadow:1px 1px 2px rgba(255,255,255,.8)}
+.symbol__delete{position:absolute;top:8px;right:8px;background:rgba(255,0,0,.8);color:#fff;border:2px solid #fff;border-radius:50%;width:32px;height:32px;font-size:1.2rem;cursor:pointer;opacity:0;transition:opacity .2s ease}
+.symbol:hover .symbol__delete{opacity:1}
+.symbol__delete:hover{background:rgba(200,0,0,1)}
+
+.board-footer{display:flex;justify-content:center;padding-top:1rem;border-top:3px solid #e0e0e0}
+
+.sidebar-panel{background:#fff;border-radius:20px;padding:2rem;box-shadow:0 4px 12px rgba(0,0,0,.1);border:3px solid #e0e0e0;position:sticky;top:2rem;max-height:calc(100vh - 4rem);overflow-y:auto}
+.sidebar-section{margin-bottom:2rem}
+.sidebar-section:last-child{margin-bottom:0}
+.sidebar-title{font-size:1.5rem;font-weight:700;color:#212121;margin:0 0 1rem 0;padding-bottom:.5rem;border-bottom:2px solid var(--primary)}
+
+.suggestions-list,.history-list{display:flex;flex-direction:column;gap:.75rem}
+.suggestion-item,.history-item{display:flex;align-items:center;background:linear-gradient(135deg,#f5f5f5,#e0e0e0);border:2px solid #ccc;border-radius:12px;padding:1rem;font-size:1.1rem;transition:all .2s ease}
+.suggestion-item{cursor:pointer}
+.suggestion-item:hover,.history-item:hover{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-color:var(--primary);transform:translateX(4px)}
+
+.sos-btn{position:fixed;bottom:160px;right:20px;width:80px;height:80px;background:linear-gradient(135deg,#FF1744,#D50000);color:#fff;border:4px solid #fff;border-radius:50%;font-size:1.5rem;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(255,23,68,.5);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;transition:all .3s ease;animation:sosPulse 2s infinite}
+.sos-btn:hover{transform:scale(1.1);box-shadow:0 8px 24px rgba(255,23,68,.7)}
+.sos-btn:focus{outline:4px solid #000;outline-offset:4px}
+.sos-icon{font-size:2.5rem}
+.sos-text{font-size:1.1rem;font-weight:700}
+@keyframes sosPulse{0%,100%{box-shadow:0 6px 20px rgba(255,23,68,.5)}50%{box-shadow:0 6px 30px rgba(255,23,68,.8),0 0 0 8px rgba(255,23,68,.2)}}
+
+@media (min-width:1200px){
+    .dashboard{flex-direction:row;align-items:flex-start}
+    .card--large{flex:1}
+    .sidebar-panel{width:320px;flex-shrink:0}
+}
+
+@media (max-width:768px){
+    .dashboard__header h1{font-size:2rem}
+    .dashboard__subtitle{font-size:1.1rem}
+    .board-controls{flex-direction:column}
+    .board-controls select,.board-controls .btn{width:100%}
+    .sentence-text{font-size:1.5rem;min-height:80px}
+    .sentence-actions{flex-direction:column}
+    .sentence-actions .btn{width:100%;min-width:auto}
+    .board-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:1rem}
+    .symbol{min-height:120px;padding:1rem .5rem}
+    .symbol__emoji{font-size:3rem}
+    .symbol__label{font-size:1.1rem}
+    .sos-btn{width:70px;height:70px;bottom:140px}
+    .sos-icon{font-size:2rem}
+    .sos-text{font-size:1rem}
+    .sidebar-panel{position:static;max-height:none;margin-top:2rem}
+}
+
+/* Modal Updates */
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal[hidden]{display:none}
+.modal__content{background:#fff;border-radius:20px;padding:2rem;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.modal__content h2{font-size:2rem;font-weight:700;color:#212121;margin:0 0 1.5rem 0;border-bottom:3px solid var(--primary);padding-bottom:.75rem}
+.modal__row{margin-bottom:1rem}
+.modal__row .input{width:100%;font-size:1.2rem;padding:1rem;border:3px solid #ccc;border-radius:12px}
+.modal__emoji-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:.75rem;margin:1rem 0}
+.modal__emoji-btn{background:#f5f5f5;border:3px solid #ccc;border-radius:12px;padding:.75rem;font-size:2rem;cursor:pointer;transition:all .2s ease}
+.modal__emoji-btn:hover{background:var(--primary);border-color:var(--primary);transform:scale(1.1)}
+.modal__buttons{display:flex;gap:1rem;margin-top:1.5rem}
+.modal__buttons .btn{flex:1}
+</style>
+
+<script src="/js/app.js"></script>
+<script src="/js/tts.js"></script>
+<script src="/js/boards.js"></script>
+<script src="/js/voice-control.js"></script>
+<script src="/js/eyetracking.js"></script>
+<script src="/js/accessibility-panel.js"></script>
+<script src="/js/simplified-mode.js"></script>
+</body>
+</html>

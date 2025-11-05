@@ -1,0 +1,80 @@
+/* Dark mode overrides - complete coverage */
+body.dark {
+  --bg: #121212;
+  --text: #E0E0E0;
+  background: #121212;
+  color: #E0E0E0;
+}
+
+/* Navigation and header */
+body.dark .topbar { background: #1E1E1E; border-color: #333; }
+body.dark .nav__link { color: #E0E0E0; }
+body.dark .nav__link--active { color: #4A90E2; }
+body.dark .nav__brand { color: #E0E0E0; }
+
+/* Main content areas */
+body.dark .dashboard { background: #121212; color: #E0E0E0; }
+body.dark .dashboard__header { color: #E0E0E0; }
+body.dark .dashboard__subtitle { color: #b0b0b0; }
+
+/* Cards and panels */
+body.dark .panel { background: #1E1E1E; border-color: #333; color: #E0E0E0; }
+body.dark .card { background: #1E1E1E; border-color: #333; color: #E0E0E0; }
+body.dark .sentence { background: #1A1A1A; border-color: #333; color: #E0E0E0; }
+
+/* Board specific */
+body.dark .board-main { background: #121212; }
+body.dark .board-grid { background: transparent; }
+body.dark .symbol { background: #2a2a2a; border-color: #444; color: #E0E0E0; }
+body.dark .symbol:hover { background: #333; }
+body.dark .symbol__label { color: #E0E0E0; }
+
+/* Sidebar */
+body.dark .sidebar { background: #1E1E1E; border-color: #333; color: #E0E0E0; }
+body.dark .sidebar-title { color: #E0E0E0; border-color: #4A90E2; }
+body.dark .suggestion-item,
+body.dark .history-item { background: #2a2a2a; border-color: #444; color: #E0E0E0; }
+body.dark .suggestion-item:hover,
+body.dark .history-item:hover { background: #333; border-color: #4A90E2; }
+
+/* Inputs and forms */
+body.dark .input,
+body.dark input,
+body.dark textarea,
+body.dark select { background: #1a1a1a; color: #E0E0E0; border-color: #444; }
+body.dark .input:focus,
+body.dark input:focus,
+body.dark textarea:focus,
+body.dark select:focus { border-color: #4A90E2; }
+
+/* Buttons */
+body.dark .btn { color: #E0E0E0; }
+body.dark .btn--ghost { border-color: #555; color: #E0E0E0; background: transparent; }
+body.dark .btn--ghost:hover { background: #2a2a2a; }
+body.dark .btn--secondary { background: #2a2a2a; color: #E0E0E0; }
+
+/* Dashboard tiles */
+body.dark .dashboard-tile { box-shadow: 0 4px 16px rgba(0,0,0,.5); }
+body.dark .dashboard-tile:hover { box-shadow: 0 12px 28px rgba(0,0,0,.7); }
+body.dark .dashboard-tile__title { color: #E0E0E0; }
+body.dark .dashboard-tile__desc { color: #b0b0b0; }
+
+/* Modals */
+body.dark #symbolModal { background: #1E1E1E; border-color: #333; color: #E0E0E0; }
+body.dark .modal-title { color: #E0E0E0; }
+
+/* Lists */
+body.dark .emoji-list { background: #1a1a1a; }
+body.dark .emoji-item { background: #2a2a2a; border-color: #444; }
+body.dark .emoji-item:hover { background: #333; }
+
+/* Settings page */
+body.dark .settings-container { background: #121212; color: #E0E0E0; }
+body.dark .settings-section { background: #1E1E1E; border-color: #333; }
+body.dark .section-title { color: #E0E0E0; }
+body.dark .setting-label { color: #E0E0E0; }
+body.dark .setting-desc { color: #b0b0b0; }
+
+/* Other elements */
+body.dark .login-prompt { background: #2a2a2a; border-color: #4A90E2; color: #e0e0e0; }
+body.dark .suggestion { background: #222; border-color: #444; color: #E0E0E0; }

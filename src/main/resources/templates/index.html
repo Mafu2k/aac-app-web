@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AAC APP – Start</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/dark-mode.css" />
+  <link rel="stylesheet" href="/css/accessibility.css" />
+  <link rel="stylesheet" href="/css/accessibility-panel.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+<header class="topbar" role="banner">
+  <nav class="nav" aria-label="Główna nawigacja">
+    <a class="nav__brand" href="/">AAC APP</a>
+    <div class="nav__links">
+      <a class="nav__link nav__link--active" href="/" aria-current="page">Start</a>
+      <a class="nav__link" href="/board">Tablica</a>
+      <a class="nav__link" href="/education">Nauka</a>
+      <a class="nav__link" href="/settings">Ustawienia</a>
+    </div>
+  </nav>
+</header>
+<main id="main" role="main" class="dashboard">
+  <div class="dashboard__header">
+    <h1>Witaj w AAC APP</h1>
+    <p class="dashboard__subtitle">Aplikacja wspomagająca komunikację alternatywną</p>
+  </div>
+
+  <div id="loginPrompt" class="login-prompt" style="display:none">
+    <p>Zaloguj się, aby uzyskać dostęp do wszystkich funkcji</p>
+    <div class="actions">
+      <a class="btn" href="/login" aria-label="Przejdź do strony logowania">Zaloguj się</a>
+      <a class="btn btn--secondary" href="/register" aria-label="Przejdź do strony rejestracji">Zarejestruj się</a>
+    </div>
+  </div>
+
+  <div id="dashboardGrid" class="dashboard-grid">
+    <!-- 1. TTS - Niebieski -->
+    <a href="/board" class="dashboard-tile dashboard-tile--blue" aria-label="Syntezator mowy - Text To Speech">
+      <div class="dashboard-tile__icon">🔊</div>
+      <h2 class="dashboard-tile__title">TTS</h2>
+      <p class="dashboard-tile__desc">Syntezator mowy – zamień tekst na mówienie</p>
+    </a>
+
+    <!-- 2. Personalizacja - Różowy -->
+    <a href="/settings" class="dashboard-tile dashboard-tile--pink" aria-label="Personalizacja i ustawienia">
+      <div class="dashboard-tile__icon">⚙️</div>
+      <h2 class="dashboard-tile__title">Personalizacja</h2>
+      <p class="dashboard-tile__desc">Dostosuj aplikację do swoich potrzeb</p>
+    </a>
+
+    <!-- 3. Pomoc w nauce - Mocny zielony -->
+    <a href="/education" class="dashboard-tile dashboard-tile--green" aria-label="Pomoc w nauce">
+      <div class="dashboard-tile__icon">📚</div>
+      <h2 class="dashboard-tile__title">Nauka</h2>
+      <p class="dashboard-tile__desc">Ćwicz nowe słowa i wyrażenia</p>
+    </a>
+
+    <!-- 4. Emocje i wyrażenia - Żółty -->
+    <a href="/emotions" class="dashboard-tile dashboard-tile--yellow" aria-label="Wyrażaj swoje emocje">
+      <div class="dashboard-tile__icon">😊</div>
+      <h2 class="dashboard-tile__title">Emocje</h2>
+      <p class="dashboard-tile__desc">Wyraź swoje uczucia i potrzeby</p>
+    </a>
+
+    <!-- 5. Ulubione - Jasny zielony -->
+    <a href="/board?category=favorites" class="dashboard-tile dashboard-tile--light-green" aria-label="Ulubione zwroty">
+      <div class="dashboard-tile__icon">⭐</div>
+      <h2 class="dashboard-tile__title">Ulubione</h2>
+      <p class="dashboard-tile__desc">Szybki dostęp do ulubionych zwrotów</p>
+    </a>
+
+    <!-- 6. Profil - Pomarańczowy -->
+    <a href="/settings?tab=profile" class="dashboard-tile dashboard-tile--orange" aria-label="Profil użytkownika">
+      <div class="dashboard-tile__icon">👤</div>
+      <h2 class="dashboard-tile__title">Profil</h2>
+      <p class="dashboard-tile__desc">Twoje dane i postępy</p>
+    </a>
+  </div>
+
+  <div id="status" class="note" role="status" aria-live="polite"></div>
+</main>
+<script>
+  (function(){
+    function isJwtValid(t){
+      try{
+        const parts = t.split('.'); if(parts.length!==3) return false;
+        const payload = JSON.parse(atob(parts[1].replace(/-/g,'+').replace(/_/g,'/')));
+        if(!payload.exp) return true;
+        const now = Math.floor(Date.now()/1000);
+        return payload.exp > now;
+      }catch(e){ return false; }
+    }
+    const token = localStorage.getItem('aac_jwt');
+    const status = document.getElementById('status');
+    const loginPrompt = document.getElementById('loginPrompt');
+    const dashboardGrid = document.getElementById('dashboardGrid');
+
+    if (token && isJwtValid(token)) {
+      status.textContent = 'Witaj! Wybierz funkcję z menu poniżej.';
+      if(loginPrompt) loginPrompt.style.display = 'none';
+      if(dashboardGrid) dashboardGrid.style.display = 'grid';
+    } else if(token) {
+      localStorage.removeItem('aac_jwt');
+      status.textContent = 'Sesja wygasła. Zaloguj się ponownie.';
+      if(loginPrompt) loginPrompt.style.display = 'block';
+      if(dashboardGrid) dashboardGrid.style.opacity = '0.5';
+    } else {
+      status.textContent = 'Witamy w AAC APP! Zaloguj się lub wypróbuj aplikację.';
+      if(loginPrompt) loginPrompt.style.display = 'block';
+    }
+  })();
+</script>
+<script src="/js/app.js"></script>
+<script src="/js/accessibility-panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terapeuta – AAC APP</title>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <link rel="stylesheet" href="/css/dark-mode.css"/>
+  <link rel="stylesheet" href="/css/accessibility.css"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+<header class="topbar" role="banner">
+  <nav class="nav" aria-label="Główna nawigacja">
+    <a class="nav__brand" href="/">AAC APP</a>
+    <div class="nav__links">
+      <a class="nav__link" href="/board">Tablica</a>
+      <a class="nav__link" href="/therapist" aria-current="page">Terapeuta</a>
+      <a class="nav__link" href="/settings">Ustawienia</a>
+      <button id="logoutBtn" class="btn btn--ghost" aria-label="Wyloguj">Wyloguj</button>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="container" role="main">
+  <section class="panel" aria-labelledby="h-usage">
+    <div class="panel__header">
+      <h1 id="h-usage" class="panel__title">Analityka użycia</h1>
+      <div class="panel__actions">
+        <button id="exportCsvBtn" class="btn btn--secondary" type="button">Eksportuj CSV</button>
+      </div>
+    </div>
+    <div id="usageChart" style="display:flex;flex-direction:column;gap:.5rem"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-notes">
+    <div class="panel__header">
+      <h2 id="h-notes" class="panel__title">Notatki terapeutyczne</h2>
+    </div>
+    <div class="form">
+      <textarea id="noteContent" class="input" rows="3" placeholder="Dodaj notatkę (obserwacje, cele, postępy)"></textarea>
+      <div class="form__actions">
+        <button id="addNoteBtn" class="btn" type="button">Zapisz notatkę</button>
+      </div>
+    </div>
+    <div id="notesList" class="history" style="margin-top: .5rem"></div>
+  </section>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/tts.js"></script>
+<script>
+  function barRow(label, count, max){
+    const wrap = document.createElement('div');
+    wrap.style.display = 'flex';
+    wrap.style.alignItems = 'center';
+    wrap.style.gap = '.5rem';
+    const lab = document.createElement('div');
+    lab.style.width = '120px';
+    lab.textContent = label;
+    const bar = document.createElement('div');
+    bar.style.height = '28px';
+    bar.style.background = '#95E1D3';
+    bar.style.border = '1px solid #333';
+    bar.style.borderRadius = '6px';
+    bar.style.width = Math.max(4, Math.round((count/max)*100)) + '%';
+    const cnt = document.createElement('span');
+    cnt.style.marginLeft = '.5rem';
+    cnt.textContent = count;
+    const line = document.createElement('div');
+    line.style.display = 'flex';
+    line.style.alignItems = 'center';
+    line.style.width = '100%';
+    line.appendChild(bar);
+    line.appendChild(cnt);
+    wrap.appendChild(lab);
+    wrap.appendChild(line);
+    return wrap;
+  }
+
+  async function loadUsage(){
+    const list = await apiGet('/api/analytics/usage?limit=10');
+    const chart = document.getElementById('usageChart');
+    chart.innerHTML = '';
+    if(!Array.isArray(list) || list.length===0){ chart.textContent = 'Brak danych'; return; }
+    const max = Math.max(...list.map(x=>x.count));
+    list.forEach(it => chart.appendChild(barRow(it.token, it.count, max)));
+    // CSV export handler
+    document.getElementById('exportCsvBtn').onclick = () => {
+      const rows = [['token','count'], ...list.map(x=>[x.token, x.count])];
+      const csv = rows.map(r => r.map(String).map(s=>`"${s.replaceAll('"','""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'usage.csv'; a.click(); URL.revokeObjectURL(url);
+    };
+  }
+
+  async function loadNotes(){
+    const list = await apiGet('/api/notes');
+    const wrap = document.getElementById('notesList');
+    wrap.innerHTML = '';
+    list.forEach(n => {
+      const div = document.createElement('div');
+      div.className = 'history__item';
+      const p = document.createElement('div'); p.textContent = n.content; p.style.marginBottom = '.25rem';
+      const del = document.createElement('button'); del.className = 'btn btn--danger'; del.textContent = 'Usuń';
+      del.addEventListener('click', async () => { await apiDelete('/api/notes/' + n.id); await loadNotes(); });
+      div.appendChild(p); div.appendChild(del); wrap.appendChild(div);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    getTokenOrRedirect();
+    await loadUsage();
+    await loadNotes();
+    document.getElementById('addNoteBtn').addEventListener('click', async () => {
+      const txt = document.getElementById('noteContent').value.trim();
+      if(!txt){ toast('Wpisz treść notatki'); return; }
+      await apiPost('/api/notes', { content: txt });
+      document.getElementById('noteContent').value = '';
+      await loadNotes();
+      toast('Zapisano notatkę');
+    });
+  });
+</script>
+</body>
+</html>

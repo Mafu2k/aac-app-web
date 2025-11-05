@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Nauka – AAC APP</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/dark-mode.css"/>
+    <link rel="stylesheet" href="/css/accessibility.css"/>
+    <link rel="stylesheet" href="/css/accessibility-panel.css"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+<header class="topbar" role="banner">
+    <nav class="nav" aria-label="Główna nawigacja">
+        <a class="nav__brand" href="/">AAC APP</a>
+        <div class="nav__links">
+            <a class="nav__link" href="/">Start</a>
+            <a class="nav__link" href="/board">Tablica</a>
+            <a class="nav__link nav__link--active" href="/education" aria-current="page">Nauka</a>
+            <a class="nav__link" href="/settings">Ustawienia</a>
+        </div>
+    </nav>
+</header>
+
+<main id="main" class="dashboard" role="main">
+    <div class="dashboard__header">
+        <h1>📚 Pomoc w nauce</h1>
+        <p class="dashboard__subtitle">Ćwicz słowa i komunikację według norm AAC</p>
+    </div>
+
+    <div class="card card--large">
+        <!-- Kategorie AAC -->
+        <section class="education-categories">
+            <h2 class="section-title">Wybierz kategorię do nauki</h2>
+            <div class="categories-grid">
+                <button class="category-card active" data-category="basic-needs" aria-label="Podstawowe potrzeby">
+                    <span class="category-icon">🍽️</span>
+                    <span class="category-title">Podstawowe potrzeby</span>
+                    <span class="category-desc">Jedzenie, picie, toaleta</span>
+                </button>
+
+                <button class="category-card" data-category="emotions" aria-label="Emocje i uczucia">
+                    <span class="category-icon">😊</span>
+                    <span class="category-title">Emocje</span>
+                    <span class="category-desc">Uczucia i nastroje</span>
+                </button>
+
+                <button class="category-card" data-category="people" aria-label="Ludzie i relacje">
+                    <span class="category-icon">👨‍👩‍👧‍👦</span>
+                    <span class="category-title">Ludzie</span>
+                    <span class="category-desc">Rodzina, przyjaciele</span>
+                </button>
+
+                <button class="category-card" data-category="activities" aria-label="Czynności">
+                    <span class="category-icon">⚽</span>
+                    <span class="category-title">Czynności</span>
+                    <span class="category-desc">Rzeczy, które robię</span>
+                </button>
+
+                <button class="category-card" data-category="places" aria-label="Miejsca">
+                    <span class="category-icon">🏠</span>
+                    <span class="category-title">Miejsca</span>
+                    <span class="category-desc">Dom, szkoła, park</span>
+                </button>
+
+                <button class="category-card" data-category="questions" aria-label="Pytania">
+                    <span class="category-icon">❓</span>
+                    <span class="category-title">Pytania</span>
+                    <span class="category-desc">Słowa pytające</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Postęp -->
+        <section class="progress-section">
+            <div class="progress-header">
+                <h3>📊 Twój postęp</h3>
+                <div class="progress-stats">
+                    <span class="stat">⭐ <strong id="starsToday">0</strong>/10 dzisiaj</span>
+                    <span class="stat">🔥 <strong id="streakDays">0</strong> dni z rzędu</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </section>
+
+        <!-- Obszar nauki -->
+        <section class="learning-area" id="learningArea">
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard" tabindex="0" role="button" aria-label="Kliknij aby obrócić fiszkę">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <div class="flashcard-emoji">🍎</div>
+                            <div class="flashcard-word">Jeść</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="flashcard-sentence">Chcę jeść</div>
+                            <button class="speak-btn" aria-label="Przeczytaj na głos">🔊</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-controls">
+                    <button class="btn btn--large" id="prevCard" aria-label="Poprzednia fiszka">⬅️ Poprzednia</button>
+                    <span class="card-counter"><span id="currentCard">1</span> / <span id="totalCards">8</span></span>
+                    <button class="btn btn--large" id="nextCard" aria-label="Następna fiszka">Następna ➡️</button>
+                </div>
+
+                <div class="flashcard-actions">
+                    <button class="action-btn action-btn--hard" aria-label="Trudne - powtórz częściej">😰 Trudne</button>
+                    <button class="action-btn action-btn--good" aria-label="Dobre - zapisz postęp">👍 Dobre</button>
+                    <button class="action-btn action-btn--easy" aria-label="Łatwe - idź dalej">😄 Łatwe</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Osiągnięcia -->
+        <section class="achievements-section">
+            <h3 class="section-title">🏆 Twoje osiągnięcia</h3>
+            <div class="achievements-grid">
+                <div class="achievement" data-achievement="first-star">
+                    <span class="achievement-icon">🌟</span>
+                    <span class="achievement-name">Pierwsza gwiazdka</span>
+                </div>
+                <div class="achievement locked" data-achievement="streak-7">
+                    <span class="achievement-icon">🔥</span>
+                    <span class="achievement-name">Seria 7 dni</span>
+                </div>
+                <div class="achievement locked" data-achievement="stars-100">
+                    <span class="achievement-icon">💯</span>
+                    <span class="achievement-name">100 gwiazdek</span>
+                </div>
+                <div class="achievement locked" data-achievement="all-categories">
+                    <span class="achievement-icon">🎓</span>
+                    <span class="achievement-name">Wszystkie kategorie</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<style>
+/* Education Page Styles */
+.education-categories{margin-bottom:2rem}
+.section-title{font-size:1.75rem;font-weight:700;color:#212121;margin:0 0 1.5rem 0;padding-bottom:.75rem;border-bottom:3px solid var(--primary)}
+
+.categories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:2rem}
+.category-card{display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:2rem 1.5rem;background:#fff;border:4px solid #e0e0e0;border-radius:20px;cursor:pointer;transition:all .3s ease;min-height:180px}
+.category-card:hover{transform:translateY(-6px);box-shadow:0 8px 20px rgba(0,0,0,.15);border-color:var(--primary)}
+.category-card:focus{outline:4px solid #000;outline-offset:4px}
+.category-card.active{border-color:var(--primary);background:linear-gradient(135deg,#e3f2fd,#bbdefb);box-shadow:0 6px 16px rgba(74,144,226,.3)}
+.category-icon{font-size:4rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1))}
+.category-title{font-size:1.4rem;font-weight:700;color:#212121;text-align:center}
+.category-desc{font-size:1rem;color:#666;text-align:center}
+
+.progress-section{background:linear-gradient(135deg,#f5f5f5,#e0e0e0);border-radius:16px;padding:1.5rem;margin-bottom:2rem;border:3px solid #ccc}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:1rem}
+.progress-header h3{margin:0;font-size:1.5rem;font-weight:700}
+.progress-stats{display:flex;gap:2rem;flex-wrap:wrap}
+.stat{font-size:1.2rem;color:#424242}
+.stat strong{color:var(--primary);font-size:1.4rem}
+.progress-bar{height:28px;background:#fff;border-radius:14px;overflow:hidden;border:2px solid #bbb;box-shadow:inset 0 2px 4px rgba(0,0,0,.1)}
+.progress-fill{height:100%;background:linear-gradient(90deg,#4CAF50,#8BC34A);transition:width .5s ease;position:relative}
+.progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:shimmer 2s infinite}
+@keyframes shimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+
+.learning-area{background:linear-gradient(135deg,#fff,#f9f9f9);border-radius:16px;padding:2rem;margin-bottom:2rem;border:3px solid #e0e0e0}
+
+.flashcard-container{max-width:650px;margin:0 auto}
+.flashcard{width:100%;height:420px;perspective:1200px;cursor:pointer;margin-bottom:2rem;border-radius:24px;overflow:hidden}
+.flashcard-inner{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:24px;padding:2rem;box-shadow:0 12px 32px rgba(0,0,0,.2);border:4px solid rgba(0,0,0,.1)}
+.flashcard-front{background:linear-gradient(135deg,#FFD93D 0%,#FBC02D 100%)}
+.flashcard-back{background:linear-gradient(135deg,#4ECDC4 0%,#00A896 100%);transform:rotateY(180deg)}
+.flashcard-emoji{font-size:8rem;margin-bottom:1.5rem;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2))}
+.flashcard-word{font-size:3rem;font-weight:700;color:#000;text-shadow:2px 2px 4px rgba(255,255,255,.5)}
+.flashcard-sentence{font-size:2rem;font-weight:600;color:#fff;text-align:center;margin-bottom:1.5rem;text-shadow:2px 2px 4px rgba(0,0,0,.3)}
+.speak-btn{font-size:2.5rem;background:rgba(255,255,255,.3);border:3px solid rgba(255,255,255,.5);border-radius:50%;width:70px;height:70px;cursor:pointer;transition:all .2s ease}
+.speak-btn:hover{background:rgba(255,255,255,.5);transform:scale(1.1)}
+.speak-btn:focus{outline:4px solid #fff;outline-offset:4px}
+
+.flashcard-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;gap:1rem;flex-wrap:wrap}
+.card-counter{font-size:1.8rem;font-weight:700;color:#212121;padding:1rem 2rem;background:#fff;border-radius:12px;border:3px solid var(--primary)}
+
+.flashcard-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.action-btn{flex:1;min-width:140px;padding:1.5rem 1.5rem;border:3px solid transparent;border-radius:16px;font-size:1.4rem;font-weight:700;cursor:pointer;transition:all .2s ease;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.action-btn:hover{transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.action-btn:focus{outline:4px solid #000;outline-offset:4px}
+.action-btn--hard{background:linear-gradient(135deg,#FF6B6B,#EE5A52);color:#fff;border-color:#D94545}
+.action-btn--good{background:linear-gradient(135deg,#4ECDC4,#44B3A9);color:#fff;border-color:#3A9B92}
+.action-btn--easy{background:linear-gradient(135deg,#95E1D3,#7FCFC0);color:#000;border-color:#6AB8A8}
+
+.achievements-section{margin-top:2rem}
+.achievements-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-top:1rem}
+.achievement{display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:1.5rem;background:linear-gradient(135deg,#FFD700,#FFA500);border-radius:20px;box-shadow:0 6px 16px rgba(255,165,0,.4);border:3px solid #FF8C00;transition:transform .3s ease}
+.achievement:hover{transform:scale(1.05)}
+.achievement.locked{background:linear-gradient(135deg,#e0e0e0,#bdbdbd);opacity:.6;border-color:#999}
+.achievement-icon{font-size:3.5rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.achievement-name{font-size:1.1rem;font-weight:700;text-align:center;color:#000}
+
+@media (max-width:768px){
+    .categories-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem}
+    .category-card{padding:1.5rem 1rem;min-height:160px}
+    .category-icon{font-size:3rem}
+    .category-title{font-size:1.2rem}
+    .flashcard{height:360px}
+    .flashcard-emoji{font-size:5rem}
+    .flashcard-word{font-size:2.2rem}
+    .flashcard-sentence{font-size:1.6rem}
+    .action-btn{min-width:120px;font-size:1.2rem}
+    .progress-header{flex-direction:column;align-items:flex-start}
+}
+</style>
+
+<script>
+// Kategorie AAC z fiszkami
+const aacCategories = {
+    'basic-needs': [
+        { emoji: '🍎', word: 'Jeść', sentence: 'Chcę jeść' },
+        { emoji: '🥤', word: 'Pić', sentence: 'Chcę się napić' },
+        { emoji: '🚽', word: 'Toaleta', sentence: 'Muszę do toalety' },
+        { emoji: '🛏️', word: 'Spać', sentence: 'Chcę iść spać' },
+        { emoji: '🧼', word: 'Myć', sentence: 'Chcę się umyć' },
+        { emoji: '🩹', word: 'Boli', sentence: 'Coś mnie boli' },
+        { emoji: '🌡️', word: 'Zimno/Gorąco', sentence: 'Jest mi zimno' },
+        { emoji: '👕', word: 'Ubrać', sentence: 'Chcę się ubrać' }
+    ],
+    'emotions': [
+        { emoji: '😊', word: 'Radość', sentence: 'Jestem szczęśliwy' },
+        { emoji: '😢', word: 'Smutek', sentence: 'Jestem smutny' },
+        { emoji: '😠', word: 'Złość', sentence: 'Jestem zły' },
+        { emoji: '😰', word: 'Strach', sentence: 'Boję się' },
+        { emoji: '🤗', word: 'Miłość', sentence: 'Kocham Cię' },
+        { emoji: '😴', word: 'Zmęczenie', sentence: 'Jestem zmęczony' },
+        { emoji: '🎉', word: 'Podekscytowanie', sentence: 'Jestem podekscytowany' },
+        { emoji: '😌', word: 'Spokój', sentence: 'Czuję się spokojnie' }
+    ],
+    'people': [
+        { emoji: '👨', word: 'Tata', sentence: 'To jest mój tata' },
+        { emoji: '👩', word: 'Mama', sentence: 'To jest moja mama' },
+        { emoji: '👦', word: 'Brat', sentence: 'To jest mój brat' },
+        { emoji: '👧', word: 'Siostra', sentence: 'To jest moja siostra' },
+        { emoji: '👴', word: 'Dziadek', sentence: 'To jest mój dziadek' },
+        { emoji: '👵', word: 'Babcia', sentence: 'To jest moja babcia' },
+        { emoji: '👨‍🏫', word: 'Nauczyciel', sentence: 'To jest nauczyciel' },
+        { emoji: '👦', word: 'Przyjaciel', sentence: 'To jest mój przyjaciel' }
+    ],
+    'activities': [
+        { emoji: '⚽', word: 'Grać', sentence: 'Chcę grać' },
+        { emoji: '📺', word: 'Oglądać', sentence: 'Chcę oglądać telewizję' },
+        { emoji: '📖', word: 'Czytać', sentence: 'Chcę czytać książkę' },
+        { emoji: '🎨', word: 'Rysować', sentence: 'Chcę rysować' },
+        { emoji: '🎵', word: 'Słuchać muzyki', sentence: 'Chcę słuchać muzyki' },
+        { emoji: '🚶', word: 'Spacer', sentence: 'Chcę iść na spacer' },
+        { emoji: '🛁', word: 'Kąpać się', sentence: 'Chcę się wykąpać' },
+        { emoji: '🎮', word: 'Gra komputerowa', sentence: 'Chcę grać w grę' }
+    ],
+    'places': [
+        { emoji: '🏠', word: 'Dom', sentence: 'Chcę do domu' },
+        { emoji: '🏫', word: 'Szkoła', sentence: 'Idę do szkoły' },
+        { emoji: '🌳', word: 'Park', sentence: 'Chcę do parku' },
+        { emoji: '🏥', word: 'Szpital', sentence: 'Idę do szpitala' },
+        { emoji: '🏪', word: 'Sklep', sentence: 'Idę do sklepu' },
+        { emoji: '🎪', word: 'Plac zabaw', sentence: 'Chcę na plac zabaw' },
+        { emoji: '🏊', word: 'Basen', sentence: 'Chcę na basen' },
+        { emoji: '🍕', word: 'Restauracja', sentence: 'Idę do restauracji' }
+    ],
+    'questions': [
+        { emoji: '❓', word: 'Co?', sentence: 'Co to jest?' },
+        { emoji: '🤷', word: 'Dlaczego?', sentence: 'Dlaczego?' },
+        { emoji: '👉', word: 'Gdzie?', sentence: 'Gdzie to jest?' },
+        { emoji: '🕐', word: 'Kiedy?', sentence: 'Kiedy?' },
+        { emoji: '👤', word: 'Kto?', sentence: 'Kto to jest?' },
+        { emoji: '🔍', word: 'Jak?', sentence: 'Jak to zrobić?' },
+        { emoji: '🆘', word: 'Pomoc', sentence: 'Potrzebuję pomocy' },
+        { emoji: '✅', word: 'Tak', sentence: 'Tak, zgadzam się' }
+    ]
+};
+
+let currentCategory = 'basic-needs';
+let currentCardIndex = 0;
+let starsEarned = parseInt(localStorage.getItem('aac_education_stars') || '0');
+let streakDays = parseInt(localStorage.getItem('aac_streak_days') || '0');
+
+const flashcard = document.getElementById('flashcard');
+const currentCardSpan = document.getElementById('currentCard');
+const totalCardsSpan = document.getElementById('totalCards');
+const prevCardBtn = document.getElementById('prevCard');
+const nextCardBtn = document.getElementById('nextCard');
+const starsTodaySpan = document.getElementById('starsToday');
+const streakDaysSpan = document.getElementById('streakDays');
+const progressFill = document.getElementById('progressFill');
+
+// Inicjalizacja
+updateStats();
+updateCard();
+
+// Zmiana kategorii
+document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('click', function() {
+        document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        currentCategory = this.dataset.category;
+        currentCardIndex = 0;
+        flashcard.classList.remove('flipped');
+        updateCard();
+    });
+});
+
+// Obracanie fiszki
+flashcard.addEventListener('click', function() {
+    this.classList.toggle('flipped');
+});
+
+flashcard.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.classList.toggle('flipped');
+    }
+});
+
+// Nawigacja fiszek
+prevCardBtn.addEventListener('click', () => {
+    const cards = aacCategories[currentCategory];
+    if (currentCardIndex > 0) {
+        currentCardIndex--;
+        flashcard.classList.remove('flipped');
+        updateCard();
+    }
+});
+
+nextCardBtn.addEventListener('click', () => {
+    const cards = aacCategories[currentCategory];
+    if (currentCardIndex < cards.length - 1) {
+        currentCardIndex++;
+        flashcard.classList.remove('flipped');
+        updateCard();
+    }
+});
+
+// Aktualizacja fiszki
+function updateCard() {
+    const cards = aacCategories[currentCategory];
+    const card = cards[currentCardIndex];
+    const front = flashcard.querySelector('.flashcard-front');
+    const back = flashcard.querySelector('.flashcard-back');
+
+    front.querySelector('.flashcard-emoji').textContent = card.emoji;
+    front.querySelector('.flashcard-word').textContent = card.word;
+    back.querySelector('.flashcard-sentence').textContent = card.sentence;
+
+    currentCardSpan.textContent = currentCardIndex + 1;
+    totalCardsSpan.textContent = cards.length;
+}
+
+// Odczyt głosowy
+document.querySelector('.speak-btn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    const cards = aacCategories[currentCategory];
+    const card = cards[currentCardIndex];
+
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(card.sentence);
+        utterance.lang = 'pl-PL';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+    }
+});
+
+// Akcje po odpowiedzi
+document.querySelectorAll('.action-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        starsEarned++;
+        localStorage.setItem('aac_education_stars', starsEarned.toString());
+        updateStats();
+
+        if (starsEarned === 1) {
+            unlockAchievement('first-star');
+        }
+        if (starsEarned >= 100) {
+            unlockAchievement('stars-100');
+        }
+
+        const cards = aacCategories[currentCategory];
+        if (currentCardIndex < cards.length - 1) {
+            nextCardBtn.click();
+        }
+    });
+});
+
+// Aktualizacja statystyk
+function updateStats() {
+    starsTodaySpan.textContent = starsEarned;
+    streakDaysSpan.textContent = streakDays;
+    progressFill.style.width = Math.min((starsEarned / 10 * 100), 100) + '%';
+
+    if (starsEarned >= 10) {
+        progressFill.style.width = '100%';
+    }
+}
+
+// Odblokowanie osiągnięcia
+function unlockAchievement(achievementId) {
+    const achievement = document.querySelector(`[data-achievement="${achievementId}"]`);
+    if (achievement && achievement.classList.contains('locked')) {
+        achievement.classList.remove('locked');
+        achievement.style.animation = 'bounceIn .6s ease';
+
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance('Gratulacje! Nowe osiągnięcie odblokowane!');
+            utterance.lang = 'pl-PL';
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+}
+
+// Sprawdzenie serii dni
+const lastVisit = localStorage.getItem('aac_last_visit');
+const today = new Date().toDateString();
+if (lastVisit !== today) {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (lastVisit === yesterday.toDateString()) {
+        streakDays++;
+        if (streakDays >= 7) {
+            unlockAchievement('streak-7');
+        }
+    } else {
+        streakDays = 1;
+    }
+    localStorage.setItem('aac_last_visit', today);
+    localStorage.setItem('aac_streak_days', streakDays.toString());
+    updateStats();
+}
+</script>
+
+<script src="/js/app.js"></script>
+<script src="/js/accessibility-panel.js"></script>
+</body>
+</html>

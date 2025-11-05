@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Ustawienia – AAC APP</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/dark-mode.css"/>
+    <link rel="stylesheet" href="/css/accessibility.css"/>
+    <link rel="stylesheet" href="/css/accessibility-panel.css"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+<header class="topbar" role="banner">
+    <nav class="nav" aria-label="Główna nawigacja">
+        <a class="nav__brand" href="/">AAC APP</a>
+        <div class="nav__links">
+            <a class="nav__link" href="/">Start</a>
+            <a class="nav__link" href="/board">Tablica</a>
+            <a class="nav__link" href="/education">Nauka</a>
+            <a class="nav__link nav__link--active" href="/settings" aria-current="page">Ustawienia</a>
+        </div>
+    </nav>
+</header>
+
+<main id="main" class="dashboard" role="main">
+    <div class="dashboard__header">
+        <h1>⚙️ Ustawienia</h1>
+        <p class="dashboard__subtitle">Dostosuj aplikację do swoich potrzeb</p>
+    </div>
+
+    <div class="card card--large">
+        <!-- Tabs Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="personalization" aria-label="Personalizacja">🎨 Personalizacja</button>
+            <button class="tab-btn" data-tab="vision" aria-label="Opcje dla słabowidzących">👁️ Dla słabowidzących</button>
+            <button class="tab-btn" data-tab="profile" aria-label="Profil użytkownika">👤 Profil</button>
+            <button class="tab-btn" data-tab="sos" aria-label="Ustawienia SOS">🆘 SOS</button>
+        </div>
+
+        <!-- Tab: Personalizacja -->
+        <div class="tab-content active" id="tab-personalization">
+            <!-- Wygląd -->
+            <div class="settings-section">
+                <h2 class="section-title">🎨 Wygląd</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="darkMode" class="setting-checkbox" />
+                            <span class="setting-text">Tryb ciemny</span>
+                        </label>
+                        <p class="setting-desc">Ciemne tło oszczędza wzrok</p>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="highContrast" class="setting-checkbox" />
+                            <span class="setting-text">Wysoki kontrast</span>
+                        </label>
+                        <p class="setting-desc">Zwiększ kontrast elementów</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rozmiary -->
+            <div class="settings-section">
+                <h2 class="section-title">📏 Rozmiary</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="fontSize" class="setting-label">Rozmiar czcionki</label>
+                        <div class="range-group">
+                            <input type="range" id="fontSize" min="14" max="32" value="18" class="range-input" />
+                            <span id="fontSizeValue" class="range-value">18px</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label for="iconSize" class="setting-label">Rozmiar ikon</label>
+                        <div class="range-group">
+                            <input type="range" id="iconSize" min="64" max="160" value="96" class="range-input" />
+                            <span id="iconSizeValue" class="range-value">96px</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sterowanie -->
+            <div class="settings-section">
+                <h2 class="section-title">🎮 Sterowanie</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="voiceControl" class="setting-checkbox" />
+                            <span class="setting-text">Sterowanie głosem</span>
+                        </label>
+                        <p class="setting-desc">Kontroluj aplikację głosem</p>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="eyeTracking" class="setting-checkbox" />
+                            <span class="setting-text">Eye-tracking</span>
+                        </label>
+                        <p class="setting-desc">Sterowanie wzrokiem (wymaga kamery)</p>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="reducedMotion" class="setting-checkbox" />
+                            <span class="setting-text">Wyłącz animacje</span>
+                        </label>
+                        <p class="setting-desc">Usuń efekty wizualne i animacje</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Dla słabowidzących -->
+        <div class="tab-content" id="tab-vision">
+            <div class="settings-section">
+                <h2 class="section-title">👁️ Opcje dla słabowidzących</h2>
+
+                <!-- Lupa i powiększenie -->
+                <div class="settings-group">
+                    <h3 class="settings-group-title">🔍 Powiększenie</h3>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label for="zoomLevel" class="setting-label">Poziom powiększenia</label>
+                            <div class="range-group">
+                                <input type="range" id="zoomLevel" min="100" max="200" value="100" step="10" class="range-input" />
+                                <span id="zoomValue" class="range-value">100%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Czytnik ekranu -->
+                <div class="settings-group">
+                    <h3 class="settings-group-title">🔊 Czytnik ekranu (TTS)</h3>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" id="screenReaderMode" class="setting-checkbox" />
+                                <span class="setting-text">Włącz czytnik ekranu</span>
+                            </label>
+                            <p class="setting-desc">Odczytuj elementy na głos</p>
+                        </div>
+                        <div class="setting-item">
+                            <label for="ttsVolume" class="setting-label">Głośność lektora</label>
+                            <div class="range-group">
+                                <input type="range" id="ttsVolume" min="0" max="100" value="100" class="range-input" />
+                                <span id="ttsVolumeValue" class="range-value">100%</span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label for="ttsRate" class="setting-label">Szybkość mowy</label>
+                            <div class="range-group">
+                                <input type="range" id="ttsRate" min="0.5" max="2" value="1" step="0.1" class="range-input" />
+                                <span id="ttsRateValue" class="range-value">1.0x</span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label for="ttsPitch" class="setting-label">Wysokość głosu</label>
+                            <div class="range-group">
+                                <input type="range" id="ttsPitch" min="0.5" max="2" value="1" step="0.1" class="range-input" />
+                                <span id="ttsPitchValue" class="range-value">1.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test TTS -->
+                <div class="settings-section">
+                    <button id="testTTS" class="btn btn--large btn--secondary">🔊 Testuj ustawienia głosu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Profil -->
+        <div class="tab-content" id="tab-profile">
+            <div class="settings-section">
+                <h2 class="section-title">👤 Profil użytkownika</h2>
+
+                <!-- Dane osobowe -->
+                <div class="settings-group">
+                    <h3 class="settings-group-title">📋 Dane podstawowe</h3>
+                    <div class="form-grid">
+                        <div class="form-item">
+                            <label for="userName" class="form-label">Imię i nazwisko</label>
+                            <input type="text" id="userName" class="input input--large" placeholder="Jan Kowalski" />
+                        </div>
+                        <div class="form-item">
+                            <label for="userAge" class="form-label">Wiek</label>
+                            <input type="number" id="userAge" class="input input--large" placeholder="25" min="1" max="120" />
+                        </div>
+                        <div class="form-item">
+                            <label for="userType" class="form-label">Rodzaj niepełnosprawności</label>
+                            <select id="userType" class="input input--large">
+                                <option value="">Wybierz...</option>
+                                <option value="autism">Autyzm</option>
+                                <option value="aphasia">Afazja</option>
+                                <option value="cerebral_palsy">Mózgowe porażenie dziecięce</option>
+                                <option value="intellectual">Niepełnosprawność intelektualna</option>
+                                <option value="visual">Niepełnosprawność wzrokowa</option>
+                                <option value="hearing">Niepełnosprawność słuchowa</option>
+                                <option value="other">Inna</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mini karta medyczna -->
+                <div class="settings-group">
+                    <h3 class="settings-group-title">🏥 Mini-karta medyczna</h3>
+                    <div class="medical-card">
+                        <div class="form-grid">
+                            <div class="form-item">
+                                <label for="bloodType" class="form-label">Grupa krwi</label>
+                                <select id="bloodType" class="input input--large">
+                                    <option value="">Nie podano</option>
+                                    <option value="A+">A Rh+</option>
+                                    <option value="A-">A Rh-</option>
+                                    <option value="B+">B Rh+</option>
+                                    <option value="B-">B Rh-</option>
+                                    <option value="AB+">AB Rh+</option>
+                                    <option value="AB-">AB Rh-</option>
+                                    <option value="O+">O Rh+</option>
+                                    <option value="O-">O Rh-</option>
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <label for="allergies" class="form-label">Alergie</label>
+                                <textarea id="allergies" class="input input--large" rows="3" placeholder="np. penicylina, orzechy, pyłki"></textarea>
+                            </div>
+                            <div class="form-item">
+                                <label for="medications" class="form-label">Stałe leki</label>
+                                <textarea id="medications" class="input input--large" rows="3" placeholder="np. insulina, leki na nadciśnienie"></textarea>
+                            </div>
+                            <div class="form-item">
+                                <label for="emergencyNotes" class="form-label">Ważne informacje medyczne</label>
+                                <textarea id="emergencyNotes" class="input input--large" rows="3" placeholder="Dodatkowe informacje dla służb ratunkowych"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: SOS -->
+        <div class="tab-content" id="tab-sos">
+            <div class="settings-section">
+                <h2 class="section-title">🆘 Ustawienia SOS</h2>
+
+                <div class="sos-info-box">
+                    <p><strong>Przycisk SOS</strong> służy do szybkiego wezwania pomocy w sytuacji zagrożenia życia lub zdrowia.</p>
+                    <p>Skonfiguruj, jak ma działać przycisk SOS:</p>
+                </div>
+
+                <!-- Rodzaj kontaktu SOS -->
+                <div class="settings-group">
+                    <h3 class="settings-group-title">📞 Typ kontaktu awaryjnego</h3>
+                    <div class="sos-options">
+                        <label class="sos-option-card">
+                            <input type="radio" name="sosType" value="emergency" class="sos-radio" checked />
+                            <div class="sos-card-content">
+                                <span class="sos-card-icon">🚨</span>
+                                <span class="sos-card-title">Numer alarmowy 112</span>
+                                <span class="sos-card-desc">Bezpośrednie połączenie z pogotowiem</span>
+                            </div>
+                        </label>
+
+                        <label class="sos-option-card">
+                            <input type="radio" name="sosType" value="phone" class="sos-radio" />
+                            <div class="sos-card-content">
+                                <span class="sos-card-icon">📱</span>
+                                <span class="sos-card-title">Telefon opiekuna</span>
+                                <span class="sos-card-desc">Zadzwoń do rodziny lub opiekuna</span>
+                            </div>
+                        </label>
+
+                        <label class="sos-option-card">
+                            <input type="radio" name="sosType" value="email" class="sos-radio" />
+                            <div class="sos-card-content">
+                                <span class="sos-card-icon">📧</span>
+                                <span class="sos-card-title">Email</span>
+                                <span class="sos-card-desc">Wyślij wiadomość email z lokalizacją</span>
+                            </div>
+                        </label>
+
+                        <label class="sos-option-card">
+                            <input type="radio" name="sosType" value="sms" class="sos-radio" />
+                            <div class="sos-card-content">
+                                <span class="sos-card-icon">💬</span>
+                                <span class="sos-card-title">SMS</span>
+                                <span class="sos-card-desc">Wyślij SMS z lokalizacją</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Kontakty SOS -->
+                <div class="settings-group" id="sosContactsGroup">
+                    <h3 class="settings-group-title">👥 Kontakty awaryjne</h3>
+                    <div class="form-grid">
+                        <div class="form-item">
+                            <label for="sosPhone1" class="form-label">Telefon #1 (główny)</label>
+                            <input type="tel" id="sosPhone1" class="input input--large" placeholder="+48 123 456 789" />
+                        </div>
+                        <div class="form-item">
+                            <label for="sosPhone2" class="form-label">Telefon #2 (zapasowy)</label>
+                            <input type="tel" id="sosPhone2" class="input input--large" placeholder="+48 987 654 321" />
+                        </div>
+                        <div class="form-item">
+                            <label for="sosEmail" class="form-label">Email kontaktowy</label>
+                            <input type="email" id="sosEmail" class="input input--large" placeholder="opiekun@example.com" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test SOS -->
+                <div class="settings-section">
+                    <button id="testSOS" class="btn btn--large btn--danger">🆘 Testuj SOS</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Przyciski akcji -->
+        <div class="settings-actions">
+            <button id="saveBtn" class="btn btn--large btn--primary">💾 Zapisz wszystkie ustawienia</button>
+            <button id="resetBtn" class="btn btn--secondary btn--large">🔄 Przywróć domyślne</button>
+        </div>
+
+        <div id="statusMsg" role="status" aria-live="polite" class="status-message"></div>
+    </div>
+</main>
+
+<style>
+/* Settings Page Styles */
+.tabs-nav{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;border-bottom:3px solid #e0e0e0}
+.tab-btn{flex:1;min-width:180px;padding:1.5rem 1.25rem;background:transparent;border:none;border-bottom:4px solid transparent;font-size:1.5rem;font-weight:700;color:#666;cursor:pointer;transition:all .2s ease}
+.tab-btn:hover{color:var(--primary);background:rgba(74,144,226,.1)}
+.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);background:rgba(74,144,226,.05)}
+.tab-btn:focus{outline:3px solid #000;outline-offset:-3px}
+
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+.settings-section{margin-bottom:2.5rem}
+.section-title{font-size:1.75rem;font-weight:700;color:#212121;margin:0 0 1.5rem 0;padding-bottom:.75rem;border-bottom:3px solid var(--primary)}
+
+.settings-group{margin-bottom:2rem;padding:1.5rem;background:#f9f9f9;border-radius:16px;border:2px solid #e0e0e0}
+.settings-group-title{font-size:1.4rem;font-weight:700;color:#212121;margin:0 0 1.25rem 0}
+
+.settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.setting-item{display:flex;flex-direction:column;gap:.5rem}
+.setting-label{display:flex;align-items:center;gap:.75rem;font-size:1.2rem;font-weight:600;color:#212121;cursor:pointer}
+.setting-checkbox{width:28px;height:28px;cursor:pointer;accent-color:var(--primary);flex-shrink:0}
+.setting-text{flex:1}
+.setting-desc{font-size:1rem;color:#666;margin:.25rem 0 0 0;line-height:1.4}
+
+.range-group{display:flex;align-items:center;gap:1rem}
+.range-input{flex:1;height:10px;border-radius:5px;background:#e0e0e0;outline:none;cursor:pointer}
+.range-input::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--primary);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.range-input::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--primary);cursor:pointer;border:none;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.range-value{font-size:1.3rem;font-weight:700;color:var(--primary);min-width:80px;text-align:right}
+
+.form-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+.form-item{display:flex;flex-direction:column;gap:.5rem}
+.form-label{font-size:1.2rem;font-weight:600;color:#212121}
+
+.medical-card{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:3px solid #4caf50;border-radius:16px;padding:1.5rem}
+
+.sos-info-box{background:linear-gradient(135deg,#fff3e0,#ffe0b2);border:3px solid #ff9800;border-radius:16px;padding:1.5rem;margin-bottom:2rem}
+.sos-info-box p{margin:0 0 .75rem 0;font-size:1.1rem;line-height:1.6}
+.sos-info-box p:last-child{margin-bottom:0}
+.sos-info-box strong{color:#e65100}
+
+.sos-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:1rem}
+.sos-option-card{display:flex;cursor:pointer;border:4px solid #e0e0e0;border-radius:16px;padding:1.5rem;background:#fff;transition:all .2s ease}
+.sos-option-card:has(input:checked){border-color:var(--primary);background:linear-gradient(135deg,#e3f2fd,#bbdefb);box-shadow:0 6px 16px rgba(74,144,226,.3)}
+.sos-option-card:hover{transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,.15)}
+.sos-radio{position:absolute;opacity:0}
+.sos-card-content{display:flex;flex-direction:column;align-items:center;gap:.75rem;text-align:center;width:100%}
+.sos-card-icon{font-size:3rem}
+.sos-card-title{font-size:1.2rem;font-weight:700;color:#212121}
+.sos-card-desc{font-size:1rem;color:#666}
+
+.settings-actions{display:flex;gap:1.5rem;justify-content:center;margin-top:2rem;padding-top:2rem;border-top:3px solid #e0e0e0;flex-wrap:wrap}
+.settings-actions .btn{flex:1;min-width:200px;max-width:400px}
+
+.status-message{margin-top:1.5rem;padding:1.25rem;border-radius:12px;font-size:1.2rem;font-weight:600;text-align:center;transition:all .3s ease}
+.status-message.success{background:#c8e6c9;color:#2e7d32;border:3px solid #4caf50}
+.status-message.error{background:#ffcdd2;color:#c62828;border:3px solid #f44336}
+
+@media (max-width:768px){
+    .tabs-nav{flex-direction:column;gap:.5rem}
+    .tab-btn{min-width:auto}
+    .settings-grid{grid-template-columns:1fr}
+    .sos-options{grid-template-columns:1fr}
+    .settings-actions{flex-direction:column}
+    .settings-actions .btn{min-width:auto;max-width:none}
+}
+
+/* Color Blind Filters */
+body.protanopia{filter:contrast(0.8) sepia(0.3) saturate(1.5) hue-rotate(-15deg)}
+body.deuteranopia{filter:contrast(0.9) sepia(0.4) saturate(1.3) hue-rotate(20deg)}
+body.tritanopia{filter:contrast(0.85) sepia(0.35) saturate(1.4) hue-rotate(-30deg) brightness(1.1)}
+body.achromatopsia{filter:grayscale(100%)}
+body.invert-colors{filter:invert(1) hue-rotate(180deg)}
+body.grayscale{filter:grayscale(100%)}
+</style>
+
+<script src="/js/settings-app.js"></script>
+<script src="/js/accessibility-panel.js"></script>
+</body>
+</html>

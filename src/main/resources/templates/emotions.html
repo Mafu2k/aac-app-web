@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Emocje – AAC APP</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/dark-mode.css"/>
+    <link rel="stylesheet" href="/css/accessibility.css"/>
+    <link rel="stylesheet" href="/css/accessibility-panel.css"/>
+    <style>
+        .emotions-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .emotions-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .emotions-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .emotions-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .emotions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .emotion-card {
+            background: linear-gradient(135deg, #ffffff, #f5f5f5);
+            border: 3px solid #ddd;
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emotion-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .emotion-card:active {
+            transform: translateY(-4px) scale(0.98);
+        }
+
+        .emotion-emoji {
+            font-size: 8rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .emotion-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .emotion-phrase {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .emotion-speak-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 168, 150, 0.3);
+        }
+
+        .emotion-speak-btn:hover {
+            background: #008f7f;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 168, 150, 0.4);
+        }
+
+        .emotion-speak-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Color variants for emotions */
+        .emotion-card.happy { border-color: #FFD93D; background: linear-gradient(135deg, #FFF8DC, #FFD93D); }
+        .emotion-card.sad { border-color: #6B7FD7; background: linear-gradient(135deg, #E8EAFF, #B8C5FF); }
+        .emotion-card.angry { border-color: #FF6B6B; background: linear-gradient(135deg, #FFE5E5, #FFB8B8); }
+        .emotion-card.scared { border-color: #9B59B6; background: linear-gradient(135deg, #F3E5F5, #E1BEE7); }
+        .emotion-card.surprised { border-color: #FF9F43; background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+        .emotion-card.calm { border-color: #4ECDC4; background: linear-gradient(135deg, #E0F7FA, #B2EBF2); }
+
+        /* Dark mode */
+        body.dark .emotion-card {
+            background: linear-gradient(135deg, #2a2a2a, #1e1e1e);
+            border-color: #444;
+        }
+
+        body.dark .emotion-name {
+            color: #E0E0E0;
+        }
+
+        body.dark .emotion-phrase {
+            color: #b0b0b0;
+        }
+
+        body.dark .emotions-subtitle {
+            color: #b0b0b0;
+        }
+
+        /* High contrast */
+        body.high-contrast .emotion-card {
+            background: #FFFF00;
+            border: 4px solid #000;
+        }
+
+        body.high-contrast .emotion-name,
+        body.high-contrast .emotion-phrase {
+            color: #000;
+            font-weight: 900;
+        }
+
+        body.high-contrast .emotion-speak-btn {
+            background: #000;
+            color: #FFD93D;
+            border: 3px solid #000;
+        }
+
+        @media (max-width: 768px) {
+            .emotions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emotion-emoji {
+                font-size: 6rem;
+            }
+
+            .emotion-name {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+
+<header class="topbar" role="banner">
+    <nav class="nav" aria-label="Główna nawigacja">
+        <a class="nav__brand" href="/">AAC APP</a>
+        <div class="nav__links">
+            <a class="nav__link" href="/">Start</a>
+            <a class="nav__link" href="/board">Tablica</a>
+            <a class="nav__link nav__link--active" href="/emotions" aria-current="page">Emocje</a>
+            <a class="nav__link" href="/education">Nauka</a>
+            <a class="nav__link" href="/settings">Ustawienia</a>
+        </div>
+    </nav>
+</header>
+
+<main id="main" class="emotions-container" role="main">
+    <div class="emotions-header">
+        <h1>😊 Jak się czujesz?</h1>
+        <p class="emotions-subtitle">Wybierz emocję i wyraź swoje uczucia</p>
+    </div>
+
+    <div class="emotions-grid" role="list">
+        <!-- Szczęśliwy -->
+        <div class="emotion-card happy" role="listitem" tabindex="0">
+            <div class="emotion-emoji">😊</div>
+            <h2 class="emotion-name">Szczęśliwy</h2>
+            <p class="emotion-phrase">"Czuję się szczęśliwy"</p>
+            <button class="emotion-speak-btn" data-emotion="Czuję się szczęśliwy" aria-label="Powiedz: Czuję się szczęśliwy">
+                🔊 Powiedz
+            </button>
+        </div>
+
+        <!-- Smutny -->
+        <div class="emotion-card sad" role="listitem" tabindex="0">
+            <div class="emotion-emoji">😢</div>
+            <h2 class="emotion-name">Smutny</h2>
+            <p class="emotion-phrase">"Czuję się smutny"</p>
+            <button class="emotion-speak-btn" data-emotion="Czuję się smutny" aria-label="Powiedz: Czuję się smutny">
+                🔊 Powiedz
+            </button>
+        </div>
+
+        <!-- Zły -->
+        <div class="emotion-card angry" role="listitem" tabindex="0">
+            <div class="emotion-emoji">😠</div>
+            <h2 class="emotion-name">Zły</h2>
+            <p class="emotion-phrase">"Czuję się zły"</p>
+            <button class="emotion-speak-btn" data-emotion="Czuję się zły" aria-label="Powiedz: Czuję się zły">
+                🔊 Powiedz
+            </button>
+        </div>
+
+        <!-- Przestraszony -->
+        <div class="emotion-card scared" role="listitem" tabindex="0">
+            <div class="emotion-emoji">😨</div>
+            <h2 class="emotion-name">Przestraszony</h2>
+            <p class="emotion-phrase">"Czuję się przestraszony"</p>
+            <button class="emotion-speak-btn" data-emotion="Czuję się przestraszony" aria-label="Powiedz: Czuję się przestraszony">
+                🔊 Powiedz
+            </button>
+        </div>
+
+        <!-- Zaskoczony -->
+        <div class="emotion-card surprised" role="listitem" tabindex="0">
+            <div class="emotion-emoji">😲</div>
+            <h2 class="emotion-name">Zaskoczony</h2>
+            <p class="emotion-phrase">"Czuję się zaskoczony"</p>
+            <button class="emotion-speak-btn" data-emotion="Czuję się zaskoczony" aria-label="Powiedz: Czuję się zaskoczony">
+                🔊 Powiedz
+            </button>
+        </div>
+
+        <!-- Spokojny -->
+        <div class="emotion-card calm" role="listitem" tabindex="0">
+            <div class="emotion-emoji">😌</div>
+            <h2 class="emotion-name">Spokojny</h2>
+            <p class="emotion-phrase">"Czuję się spokojny"</p>
+            <button class="emotion-speak-btn" data-emotion="Czuję się spokojny" aria-label="Powiedz: Czuję się spokojny">
+                🔊 Powiedz
+            </button>
+        </div>
+    </div>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/tts.js"></script>
+<script src="/js/accessibility-panel.js"></script>
+<script>
+    (function() {
+        'use strict';
+
+        // Check authentication
+        getTokenOrRedirect();
+
+        // Attach event listeners to all emotion speak buttons
+        document.querySelectorAll('.emotion-speak-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const emotion = this.dataset.emotion;
+                speakAlways(emotion);
+
+                // Visual feedback
+                const card = this.closest('.emotion-card');
+                card.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Make emotion cards clickable (also triggers speak)
+        document.querySelectorAll('.emotion-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't trigger if button was clicked
+                if (e.target.classList.contains('emotion-speak-btn')) return;
+
+                const btn = this.querySelector('.emotion-speak-btn');
+                if (btn) btn.click();
+            });
+
+            // Keyboard support
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const btn = this.querySelector('.emotion-speak-btn');
+                    if (btn) btn.click();
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html>
