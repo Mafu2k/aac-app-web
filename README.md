@@ -177,14 +177,9 @@ Zachęcamy do zgłaszania błędów, propozycji funkcjonalności i pull request�
 Ten projekt jest udostępniony na licencji MIT. Zobacz plik [LICENSE](LICENSE) po szczegóły.
 
 ## 👨‍💻 Autor
-
+Łukasz Janicki
 Projekt stworzony jako aplikacja wspomagająca komunikację dla osób z niepełnosprawnościami.
 
-## 🙏 Podziękowania
-
-- Społeczność AAC za feedback i inspirację
-- Terapeutom i opiekunom za konsultacje
-- Wszystkim użytkownikom testującym aplikację
 
 ## 📞 Kontakt
 
