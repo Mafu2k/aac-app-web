@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logowanie – AAC APP</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/dark-mode.css" />
+  <link rel="stylesheet" href="/css/accessibility.css" />
+  <link rel="stylesheet" href="/css/accessibility-panel.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+<header class="topbar" role="banner">
+  <nav class="nav" aria-label="Główna nawigacja">
+    <a class="nav__brand" href="/">AAC APP</a>
+    <div class="nav__links">
+      <a class="nav__link" href="/board">Tablica</a>
+      <a class="nav__link" href="/settings">Ustawienia</a>
+      <a class="nav__link" href="/login" aria-current="page">Zaloguj</a>
+      <a class="nav__link" href="/register">Rejestracja</a>
+    </div>
+  </nav>
+</header>
+<main id="main" role="main" class="dashboard">
+<div class="card card--large">
+  <h1>Logowanie</h1>
+  <form id="form" class="form">
+    <div class="form__row">
+      <label for="username" class="label">Login</label>
+      <input id="username" name="username" class="input" autocomplete="username" required autofocus />
+    </div>
+
+    <div class="form__row">
+      <label for="password" class="label">Hasło</label>
+      <input id="password" name="password" type="password" class="input" autocomplete="current-password" required />
+    </div>
+
+    <button type="submit" class="btn btn--large">Zaloguj się</button>
+  </form>
+  <div id="msg" class="error" role="alert" aria-live="polite"></div>
+  <div class="note">Konta startowe: admin/admin oraz user/user</div>
+  <div class="actions">
+    <a class="link" href="/register">Nie masz konta? Zarejestruj się</a>
+    <a class="link" href="/">Wróć do strony głównej</a>
+  </div>
+</div>
+</main>
+<script>
+  function nextPath(){
+    const p = new URLSearchParams(location.search).get('next');
+    if(p && p.startsWith('/')) return p;
+    return '/board';
+  }
+  document.getElementById('form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    const msg = document.getElementById('msg');
+    msg.textContent = '';
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(txt || 'Błąd logowania');
+      }
+      const data = await res.json();
+      if (data && data.token) {
+        localStorage.setItem('aac_jwt', data.token);
+        window.location.href = nextPath();
+      } else {
+        throw new Error('Nieprawidłowa odpowiedź serwera');
+      }
+    } catch (err) {
+      msg.textContent = err.message || 'Wystąpił błąd';
+    }
+  });
+</script>
+<script src="/js/app.js"></script>
+<script src="/js/accessibility-panel.js"></script>
+</body>
+</html>

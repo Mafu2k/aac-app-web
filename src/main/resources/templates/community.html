@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Społeczność</title>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <link rel="stylesheet" href="/css/dark-mode.css"/>
+  <link rel="stylesheet" href="/css/accessibility.css"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+<header class="topbar" role="banner">
+  <nav class="nav" aria-label="Główna nawigacja">
+    <a class="nav__brand" href="/">AAC APP</a>
+    <div class="nav__links">
+      <a class="nav__link" href="/board">Tablica</a>
+      <a class="nav__link" href="/therapist">Terapeuta</a>
+      <a class="nav__link" href="/education">Edukacja</a>
+      <a class="nav__link" href="/competition">Rywalizacja</a>
+      <a class="nav__link" href="/community" aria-current="page">Społeczność</a>
+      <a class="nav__link" href="/settings">Ustawienia</a>
+      <a class="nav__link" href="/help">Pomoc</a>
+      <button id="logoutBtn" class="btn btn--ghost" aria-label="Wyloguj">Wyloguj</button>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="container" role="main">
+  <section class="panel">
+    <div class="panel__header">
+      <h1 class="panel__title">Społeczność AAC</h1>
+    </div>
+    <div class="grid grid--2">
+      <div>
+        <h2>Tablice publiczne</h2>
+        <div id="publicBoards" class="cards" aria-live="polite"></div>
+      </div>
+      <div>
+        <h2>Moje tablice</h2>
+        <div id="myBoards" class="cards" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/community.js"></script>
+<script src="/js/voice-control.js"></script>
+<script>
+  document.getElementById('logoutBtn').addEventListener('click', logout);
+</script>
+</body>
+</html>

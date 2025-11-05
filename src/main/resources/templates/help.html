@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Pomoc i przewodnik</title>
+  <link rel="stylesheet" href="/css/styles.css"/>
+  <link rel="stylesheet" href="/css/dark-mode.css"/>
+  <link rel="stylesheet" href="/css/accessibility.css"/>
+</head>
+<body>
+<a href="#main" class="skip-link">Pomiń nawigację</a>
+<header class="topbar" role="banner">
+  <nav class="nav" aria-label="Główna nawigacja">
+    <a class="nav__brand" href="/">AAC APP</a>
+    <div class="nav__links">
+      <a class="nav__link" href="/board">Tablica</a>
+      <a class="nav__link" href="/therapist">Terapeuta</a>
+      <a class="nav__link" href="/settings">Ustawienia</a>
+      <a class="nav__link" href="/help" aria-current="page">Pomoc</a>
+      <button id="logoutBtn" class="btn btn--ghost" aria-label="Wyloguj">Wyloguj</button>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="container" role="main">
+  <section class="panel">
+    <div class="panel__header">
+      <h1 class="panel__title">Przewodnik i FAQ</h1>
+    </div>
+    <div class="grid grid--2">
+      <div>
+        <h2>Onboarding</h2>
+        <ol class="steps">
+          <li>Zaloguj się i przejdź do Tablicy.</li>
+          <li>Dodaj symbole/emotki i zbuduj swoje zdanie.</li>
+          <li>Użyj przycisku „Powiedz” aby wypowiedzieć zdanie.</li>
+          <li>Sprawdź Ustawienia by dopasować rozmiary, kolory i czcionkę.</li>
+          <li>Wypróbuj tryb Edukacja i Rywalizacja.</li>
+        </ol>
+        <div class="form__actions">
+          <button id="speakGuide" class="btn">Odtwórz przewodnik</button>
+        </div>
+      </div>
+      <div>
+        <h2>FAQ</h2>
+        <details>
+          <summary>Jak włączyć sterowanie głosem?</summary>
+          <p>Przejdź do Ustawień i włącz „Sterowanie głosem”. Następnie używaj komend: „otwórz tablica”, „powiedz zdanie”, „wyczyść”.</p>
+        </details>
+        <details>
+          <summary>Jak dodać własny obraz?</summary>
+          <p>Na Tablicy kliknij „Dodaj symbol”, wgraj plik lub podaj adres obrazka.</p>
+        </details>
+        <details>
+          <summary>Jak udostępnić tablicę społeczności?</summary>
+          <p>Wejdź w zakładkę Społeczność i opublikuj wybraną tablicę.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/tts.js"></script>
+<script src="/js/voice-control.js"></script>
+<script>
+  document.getElementById('logoutBtn').addEventListener('click', logout);
+  document.getElementById('speakGuide').addEventListener('click', () => {
+    speak('Witaj w aplikacji A A C. Zaloguj się i przejdź do tablicy. Dodaj symbole i emotikony, aby zbudować zdanie. Kliknij przycisk Powiedz, by usłyszeć głos. W ustawieniach dopasuj rozmiar ikon, czcionkę i tryb kolorów. Wypróbuj edukację i rywalizację.');
+  });
+</script>
+</body>
+</html>
