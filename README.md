@@ -178,5 +178,36 @@ Ten projekt jest udostępniony na licencji MIT. Zobacz plik [LICENSE](LICENSE) p
 
 ## 📞 Kontakt
 
+## 👥 Zespół i Role - Laboratorium
+
+Projekt AAC APP jest rozwijany w ramach laboratorium zajęć akademickich. Każdy członek zespołu ma przydzieloną specjalną rolę.
+
+### Struktura zespołu
+
+| Rola | Opis | Zadania |
+|------|------|----------|
+| **Project Leader** | Zarządzanie projektem, nadzór | Code review, merging PR, Issues, Roadmap |
+| **Frontend Developer** | Interfejs użytkownika | HTML/CSS/JS, komponenty, style |
+| **Backend Developer** | Logika i API | Spring Boot, REST API, baza danych |
+| **Tester / DevOps** | Testowanie i CI/CD | Testy, dokumentacja, GitHub Actions |
+
+### Branching Strategy
+- `main` - produkcja, stabilne wydania
+- `develop` - integracja funkcji
+- `feature/*` - nowe funkcjonalności
+- `bugfix/*` - poprawki
+
+### Workflow Pull Request
+1. Utwórz branch z `develop`: `git checkout -b feature/nazwa develop`
+2. Commituj z jasnymi komunikatami
+3. Otwórz PR do `develop` z opisem
+4. Code review przez Project Leadera
+5. Merge po zatwierdzeniu
+
+### GitHub Resources
+- [Issues](https://github.com/Mafu2k/aac-app-web/issues) - zadania do wykonania
+- [Pull Requests](https://github.com/Mafu2k/aac-app-web/pulls) - przegląd zmian
+- [Projects](https://github.com/Mafu2k/aac-app-web/projects) - tablica postępu
+
 W razie pytań lub uwag, otwórz Issue na GitHubie.
 
