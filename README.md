@@ -176,15 +176,7 @@ Zachęcamy do zgłaszania błędów, propozycji funkcjonalności i pull request�
 
 Ten projekt jest udostępniony na licencji MIT. Zobacz plik [LICENSE](LICENSE) po szczegóły.
 
-## 👨‍💻 Autor
-Łukasz Janicki
-Projekt stworzony jako aplikacja wspomagająca komunikację dla osób z niepełnosprawnościami.
-
-
 ## 📞 Kontakt
 
 W razie pytań lub uwag, otwórz Issue na GitHubie.
 
----
-
-**Razem czynimy komunikację dostępną dla wszystkich! 💙**
