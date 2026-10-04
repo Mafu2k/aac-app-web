@@ -9,7 +9,7 @@ Projekt powstał zespołowo w ramach laboratorium na studiach.
 - **Tablice komunikacyjne** z własnymi symbolami (emoji albo wgrane zdjęcia), kategoriami
   i ulubionymi zwrotami. Zbudowane zdanie czyta syntezator mowy przeglądarki.
 - **Emocje**: gotowe komunikaty do szybkiego pokazania, jak się czuję i czego potrzebuję.
-- **Edukacja**: ćwiczenia ze słownictwem i gra memory.
+- **Nauka słownictwa** podzielona na kategorie, ze śledzeniem postępów i osiągnięciami.
 - **SOS**: przycisk alarmowy na każdej stronie, który wysyła maila do opiekuna. SMS jest
   na razie tylko zaślepką.
 - **Panel terapeuty** z notatkami o podopiecznych, historia rozmów i proste statystyki.
@@ -21,7 +21,7 @@ Projekt powstał zespołowo w ramach laboratorium na studiach.
 ## Technologie
 
 Spring Boot 3.5 (Java 21) z Thymeleafem i zwykłym JavaScriptem. Spring Security działa z JWT
-i hasłami w BCrypt, są role `USER`, `THERAPIST` i `ADMIN`. Dane trzyma JPA: lokalnie w plikowej
+i hasłami w BCrypt, są role `USER`, `CAREGIVER` i `ADMIN`. Dane trzyma JPA: lokalnie w plikowej
 bazie H2, docelowo w MySQL. Dokumentacja API jest w Swagger UI (springdoc).
 
 ## Uruchomienie
