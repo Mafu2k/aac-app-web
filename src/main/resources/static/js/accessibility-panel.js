@@ -637,13 +637,11 @@
       }
 
       recognition.onstart = function() {
-        console.log('Voice recognition started');
         if (voiceIndicator) voiceIndicator.style.display = 'block';
         announceToScreenReader('Sterowanie głosem aktywne. Słucham poleceń.');
       };
 
       recognition.onend = function() {
-        console.log('Voice recognition ended');
         if (voiceIndicator) voiceIndicator.style.display = 'none';
         // Auto-restart if still enabled
         if (state.voiceEnabled) {
@@ -683,7 +681,6 @@
       recognition.onresult = function(event) {
         const last = event.results.length - 1;
         const command = event.results[last][0].transcript.toLowerCase().trim();
-        console.log('Voice command:', command);
 
         // Show recognized command briefly
         if (voiceIndicator) {
@@ -765,7 +762,6 @@
     // Unrecognized
     else {
       announceToScreenReader('Nie rozpoznano polecenia: ' + command);
-      console.log('Nierozpoznane polecenie:', command);
     }
   }
 

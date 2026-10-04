@@ -1,213 +1,58 @@
-# AAC APP - Aplikacja Wspomagająca Komunikację Alternatywną
+# AAC APP
 
-## 📋 Opis projektu
+Aplikacja webowa do komunikacji wspomagającej i alternatywnej (AAC) dla osób, którym trudno
+mówić. Użytkownik układa zdania z symboli na tablicach komunikacyjnych, a aplikacja je odczytuje.
+Projekt powstał zespołowo w ramach laboratorium na studiach.
 
-AAC APP to nowoczesna aplikacja webowa wspierająca komunikację alternatywną i wspomagającą (Augmentative and Alternative Communication). Projekt został stworzony z myślą o osobach z trudnościami w komunikacji werbalnej, oferując intuicyjny interfejs do budowania zdań za pomocą symboli wizualnych.
+## Co jest w środku
 
-## ✨ Główne funkcjonalności
+- **Tablice komunikacyjne** z własnymi symbolami (emoji albo wgrane zdjęcia), kategoriami
+  i ulubionymi zwrotami. Zbudowane zdanie czyta syntezator mowy przeglądarki.
+- **Emocje**: gotowe komunikaty do szybkiego pokazania, jak się czuję i czego potrzebuję.
+- **Edukacja**: ćwiczenia ze słownictwem i gra memory.
+- **SOS**: przycisk alarmowy na każdej stronie, który wysyła maila do opiekuna. SMS jest
+  na razie tylko zaślepką.
+- **Panel terapeuty** z notatkami o podopiecznych, historia rozmów i proste statystyki.
+- **Społeczność i wyzwania** dla użytkowników i opiekunów.
+- **Dostępność**: tryb ciemny i wysoki kontrast, regulacja wielkości czcionek i ikon, uproszczony
+  interfejs, sterowanie głosem oraz wybór przez przytrzymanie kursora (dwell click), który
+  ma być punktem wyjścia pod prawdziwy eye-tracking.
 
-### 🔊 Syntezator mowy (TTS)
-- Konwersja tekstu na mowę
-- Budowanie zdań za pomocą symboli
-- Personalizowane tablice komunikacyjne
+## Technologie
 
-### 💬 Tablica komunikacyjna
-- Tworzenie własnych tablic z symbolami
-- Dodawanie własnych symboli (emoji, obrazy, zdjęcia)
-- Kategoryzacja i organizacja symboli
-- System ulubionych zwrotów
+Spring Boot 3.5 (Java 21) z Thymeleafem i zwykłym JavaScriptem. Spring Security działa z JWT
+i hasłami w BCrypt, są role `USER`, `THERAPIST` i `ADMIN`. Dane trzyma JPA: lokalnie w plikowej
+bazie H2, docelowo w MySQL. Dokumentacja API jest w Swagger UI (springdoc).
 
-### 🎨 Personalizacja
-- **Wygląd**: tryb ciemny, wysoki kontrast
-- **Dostępność**: regulacja rozmiaru czcionki i ikon
-- **Sterowanie**: obsługa głosowa, eye-tracking
-- **Uproszczony interfejs** dla osób z ograniczeniami poznawczymi
+## Uruchomienie
 
-### 😊 Moduł emocji
-- Szybkie wyrażanie emocji i potrzeb
-- Gotowe zestawy komunikatów
-- Wizualne reprezentacje stanów emocjonalnych
-
-### 📚 Edukacja
-- Nauka nowych słów i wyrażeń
-- Ćwiczenia komunikacyjne
-- Gry edukacyjne (Memory)
-
-### 🆘 System SOS
-- Przycisk awaryjny na wszystkich stronach
-- Powiadomienia SMS/Email dla opiekunów
-- Szybki dostęp do pomocy
-
-### 👥 Funkcje społecznościowe
-- **Community**: forum dla użytkowników i opiekunów
-- **Competition**: system rywalizacji i osiągnięć
-- **Moduł terapeuty**: narzędzia dla specjalistów
-
-## 🛠️ Technologie
-
-### Backend
-- **Java 21**
-- **Spring Boot 3.5.6**
-  - Spring Web
-  - Spring Data JPA
-  - Spring Security (JWT)
-  - Spring WebSocket
-- **Maven**
-- **Bazy danych**:
-  - H2 (development)
-  - MySQL (production)
-
-### Frontend
-- **HTML5, CSS3, JavaScript (Vanilla)**
-- **Thymeleaf** (szablony)
-- **Web Speech API** (TTS, rozpoznawanie głosu)
-- **Progressive Web App** (PWA ready)
-
-### API
-- **RESTful API**
-- **Swagger/OpenAPI** dokumentacja
-
-## 🚀 Uruchomienie projektu
-
-### Wymagania
-- Java 21+
-- Maven 3.8+
-- (Opcjonalnie) MySQL 8.0+
-
-### Instalacja
-
-1. **Klonowanie repozytorium**
 ```bash
-git clone https://github.com/twoje-repo/aac-app-web.git
-cd aac-app-web
+./mvnw spring-boot:run
 ```
 
-2. **Konfiguracja**
+Ważne adresy:
 
-Edytuj `src/main/resources/application.properties`:
-```properties
-# Zmień sekret JWT
-app.security.jwt.secret=twoj-bezpieczny-sekret
+- aplikacja: http://localhost:8080,
+- Swagger: http://localhost:8080/swagger-ui,
+- konsola H2: http://localhost:8080/h2-console.
 
-# Opcjonalnie skonfiguruj MySQL
-# spring.datasource.url=jdbc:mysql://localhost:3306/aac_app
-# spring.datasource.username=user
-# spring.datasource.password=password
-```
+Przy starcie tworzą się konta `admin` / `admin` i `user` / `user`.
 
-3. **Budowanie i uruchomienie**
-```bash
-# Budowanie
-mvn clean install
+Konfigurację podaje się w zmiennych środowiskowych:
 
-# Uruchomienie
-mvn spring-boot:run
-```
+| Zmienna | Do czego |
+|---------|----------|
+| `AAC_APP_JWT_SECRET` | sekret do podpisywania tokenów, na produkcji obowiązkowy |
+| `AAC_APP_CORS_ORIGINS` | dozwolone originy (domyślnie `http://localhost:8080`) |
+| `MAIL_USERNAME`, `MAIL_PASSWORD` | konto SMTP do wysyłania alarmów SOS |
 
-4. **Dostęp do aplikacji**
-- Aplikacja: http://localhost:8080
-- H2 Console: http://localhost:8080/h2-console
-- Swagger UI: http://localhost:8080/swagger-ui
+Przejście na MySQL to odkomentowanie sekcji w `application.properties`.
 
-### Pierwsze logowanie
+## Praca w zespole
 
-Domyślne konto administratora:
-- **Login**: `admin`
-- **Hasło**: `admin123`
+Gałęzie `feature/*` i `bugfix/*` odchodziły od `develop`, a do `main` trafiały tylko stabilne
+wersje. Każdy PR przechodził code review. Szczegóły są w [CONTRIBUTING.md](CONTRIBUTING.md).
 
-⚠️ **Zmień hasło po pierwszym zalogowaniu!**
+## Licencja
 
-## 📁 Struktura projektu
-
-```
-aac-app-web/
-├── src/
-│   ├── main/
-│   │   ├── java/pl/aac/app/aacappweb/
-│   │   │   ├── config/          # Konfiguracja (Security, JWT)
-│   │   │   ├── controller/      # REST Controllers
-│   │   │   ├── dto/             # Data Transfer Objects
-│   │   │   ├── model/           # Encje JPA
-│   │   │   ├── repository/      # Repozytoria danych
-│   │   │   └── service/         # Logika biznesowa
-│   │   └── resources/
-│   │       ├── static/          # CSS, JS, obrazy
-│   │       ├── templates/       # Szablony Thymeleaf
-│   │       └── application.properties
-│   └── test/                    # Testy
-├── data/                        # Baza danych H2 (local)
-├── uploads/                     # Przesłane pliki użytkowników
-└── pom.xml
-```
-
-## 🔐 Bezpieczeństwo
-
-- Uwierzytelnianie JWT
-- Hashowanie haseł (BCrypt)
-- Zabezpieczenie API przed CSRF
-- Walidacja danych wejściowych
-- Role użytkowników (USER, THERAPIST, ADMIN)
-
-## 📱 Dostępność
-
-Aplikacja spełnia standardy dostępności WCAG 2.1:
-- Obsługa klawiatury
-- Etykiety ARIA
-- Wysoki kontrast
-- Skalowalne czcionki
-- Kompatybilność z czytnikami ekranu
-
-## 🤝 Wkład w rozwój
-
-Zachęcamy do zgłaszania błędów, propozycji funkcjonalności i pull requestów!
-
-### Jak zgłosić błąd
-1. Sprawdź czy błąd nie został już zgłoszony w Issues
-2. Utwórz nowy Issue z dokładnym opisem problemu
-3. Dołącz kroki reprodukcji i screenshoty
-
-### Jak dodać nową funkcjonalność
-1. Forkuj repozytorium
-2. Utwórz branch z opisową nazwą (`feature/nowa-funkcja`)
-3. Commituj zmiany z jasnymi komunikatami
-4. Wyślij Pull Request z opisem zmian
-
-## 📄 Licencja
-
-Ten projekt jest udostępniony na licencji MIT. Zobacz plik [LICENSE](LICENSE) po szczegóły.
-
-## 📞 Kontakt
-
-## 👥 Zespół i Role - Laboratorium
-
-Projekt AAC APP jest rozwijany w ramach laboratorium zajęć akademickich. Każdy członek zespołu ma przydzieloną specjalną rolę.
-
-### Struktura zespołu
-
-| Rola | Opis | Zadania |
-|------|------|----------|
-| **Project Leader** | Zarządzanie projektem, nadzór | Code review, merging PR, Issues, Roadmap |
-| **Frontend Developer** | Interfejs użytkownika | HTML/CSS/JS, komponenty, style |
-| **Backend Developer** | Logika i API | Spring Boot, REST API, baza danych |
-| **Tester / DevOps** | Testowanie i CI/CD | Testy, dokumentacja, GitHub Actions |
-
-### Branching Strategy
-- `main` - produkcja, stabilne wydania
-- `develop` - integracja funkcji
-- `feature/*` - nowe funkcjonalności
-- `bugfix/*` - poprawki
-
-### Workflow Pull Request
-1. Utwórz branch z `develop`: `git checkout -b feature/nazwa develop`
-2. Commituj z jasnymi komunikatami
-3. Otwórz PR do `develop` z opisem
-4. Code review przez Project Leadera
-5. Merge po zatwierdzeniu
-
-### GitHub Resources
-- [Issues](https://github.com/Mafu2k/aac-app-web/issues) - zadania do wykonania
-- [Pull Requests](https://github.com/Mafu2k/aac-app-web/pulls) - przegląd zmian
-- [Projects](https://github.com/Mafu2k/aac-app-web/projects) - tablica postępu
-
-W razie pytań lub uwag, otwórz Issue na GitHubie.
-
+MIT

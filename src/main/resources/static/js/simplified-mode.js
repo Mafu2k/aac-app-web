@@ -123,7 +123,7 @@
       oscillator.start(audioContext.currentTime);
       oscillator.stop(audioContext.currentTime + 0.1);
     } catch (e) {
-      console.log('Audio feedback niedostępny');
+      console.warn('Audio feedback niedostępny');
     }
   }
 

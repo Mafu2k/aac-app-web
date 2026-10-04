@@ -223,7 +223,7 @@ async function panic(){
       location = `Lat: ${pos.coords.latitude.toFixed(6)}, Lon: ${pos.coords.longitude.toFixed(6)}`;
       location += `\nGoogle Maps: https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
     } catch (e) {
-      console.log('Nie można pobrać lokalizacji');
+      console.warn('Nie można pobrać lokalizacji');
     }
   }
 
@@ -272,7 +272,7 @@ async function panic(){
         text: `${sosData.userName} potrzebuje pomocy!\n\nLokalizacja:\n${location}`
       });
     } catch(e) {
-      console.log('Share nie powiodło się');
+      console.warn('Share nie powiodło się');
     }
   }
 }

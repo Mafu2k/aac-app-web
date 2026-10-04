@@ -114,7 +114,6 @@ public class SosController {
         mailSender.send(message);
     }
 
-    // DTO for SOS request
     public static class SosRequest {
         private String sosType;
         private String sosEmail;

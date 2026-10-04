@@ -48,7 +48,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    // Competition / Gamification fields
     private Integer xp = 0; // experience points
     private Integer level = 1; // user level
 
